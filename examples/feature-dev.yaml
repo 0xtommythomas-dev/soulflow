@@ -1,0 +1,82 @@
+name: Feature Development
+description: End-to-end feature development with multiple checkpoints and reviews
+
+steps:
+  - name: Requirements Analysis
+    agent: planner
+    task: Break down feature requirements into technical specifications
+    retry: 2
+    verify_with: reviewer
+    context:
+      deliverables:
+        - Technical design document
+        - API contracts
+        - Data models
+
+  - name: Architecture Design
+    agent: planner
+    task: Design system architecture and component interactions
+    retry: 2
+    verify_with: reviewer
+
+  - name: Database Schema
+    agent: developer
+    task: Design and implement database schema changes if needed
+    retry: 2
+    verify_with: verifier
+
+  - name: Backend Implementation
+    agent: developer
+    task: Implement backend logic, APIs, and business rules
+    retry: 3
+    escalate_to: reviewer
+
+  - name: Backend Testing
+    agent: tester
+    task: Write and run comprehensive backend tests (unit, integration)
+    retry: 2
+    verify_with: verifier
+
+  - name: Frontend Implementation
+    agent: developer
+    task: Implement user interface and frontend logic
+    retry: 3
+    escalate_to: reviewer
+
+  - name: Frontend Testing
+    agent: tester
+    task: Test UI functionality, responsiveness, and user experience
+    retry: 2
+
+  - name: Integration Testing
+    agent: tester
+    task: Test end-to-end feature functionality across all components
+    retry: 2
+    verify_with: verifier
+
+  - name: Performance Testing
+    agent: tester
+    task: Run performance tests and optimize bottlenecks
+    retry: 2
+    escalate_to: developer
+
+  - name: Security Review
+    agent: verifier
+    task: Review feature for security vulnerabilities and compliance
+    retry: 1
+
+  - name: Documentation
+    agent: developer
+    task: Write user documentation, API docs, and inline comments
+    retry: 2
+    verify_with: reviewer
+
+  - name: Code Review
+    agent: reviewer
+    task: Final code review for quality, maintainability, and best practices
+    retry: 1
+
+  - name: Deployment Preparation
+    agent: planner
+    task: Prepare deployment plan, rollback strategy, and monitoring
+    verify_with: reviewer

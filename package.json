@@ -1,0 +1,26 @@
+{
+  "name": "soulflow",
+  "version": "2.0.0",
+  "description": "Production-grade multi-agent workflow orchestrator for OpenClaw",
+  "main": "lib/index.js",
+  "type": "module",
+  "bin": {
+    "soulflow": "./bin/soulflow.js"
+  },
+  "scripts": {
+    "test": "node --test",
+    "link": "npm link"
+  },
+  "keywords": [
+    "workflow",
+    "orchestration",
+    "multi-agent",
+    "automation",
+    "openclaw"
+  ],
+  "author": "OpenClaw",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

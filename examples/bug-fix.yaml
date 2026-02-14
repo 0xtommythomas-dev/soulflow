@@ -1,0 +1,51 @@
+name: Bug Fix Workflow
+description: Systematic approach to bug fixing with testing and verification
+
+steps:
+  - name: Bug Analysis
+    agent: planner
+    task: Analyze bug report, reproduce issue, and identify root cause
+    retry: 2
+    context:
+      required_info:
+        - Steps to reproduce
+        - Expected vs actual behavior
+        - Environment details
+
+  - name: Impact Assessment
+    agent: verifier
+    task: Determine scope of bug impact and affected components
+    retry: 1
+
+  - name: Solution Design
+    agent: developer
+    task: Design fix approach and identify potential side effects
+    retry: 2
+    verify_with: reviewer
+
+  - name: Implementation
+    agent: developer
+    task: Implement the bug fix following best practices
+    retry: 3
+    escalate_to: reviewer
+
+  - name: Unit Testing
+    agent: tester
+    task: Create and run unit tests for the fix
+    retry: 2
+    verify_with: verifier
+
+  - name: Regression Testing
+    agent: tester
+    task: Run regression tests to ensure no new issues introduced
+    retry: 2
+
+  - name: Code Review
+    agent: reviewer
+    task: Review code changes for quality and completeness
+    retry: 1
+
+  - name: Documentation
+    agent: developer
+    task: Update documentation and add comments explaining the fix
+    verify_with: reviewer

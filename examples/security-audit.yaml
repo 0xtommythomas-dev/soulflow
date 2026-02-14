@@ -1,0 +1,45 @@
+name: Security Audit
+description: Comprehensive security audit of a codebase with multiple verification stages
+
+steps:
+  - name: Initial Assessment
+    agent: planner
+    task: Review codebase structure and identify security-critical areas (authentication, data handling, API endpoints)
+    retry: 2
+    verify_with: reviewer
+
+  - name: Vulnerability Scan
+    agent: tester
+    task: Run automated security scans for common vulnerabilities (SQL injection, XSS, CSRF, etc.)
+    retry: 3
+    context:
+      tools: 
+        - Static analysis
+        - Dependency checking
+
+  - name: Code Review
+    agent: verifier
+    task: Manual code review of security-critical sections identified in assessment
+    retry: 2
+    verify_criteria: All critical security issues documented
+
+  - name: Penetration Testing
+    agent: tester
+    task: Attempt to exploit identified vulnerabilities in controlled environment
+    retry: 1
+    escalate_to: reviewer
+
+  - name: Remediation Plan
+    agent: planner
+    task: Create prioritized remediation plan with timelines and responsibilities
+    retry: 2
+
+  - name: Implementation Review
+    agent: developer
+    task: Review proposed fixes and validate they don't introduce new issues
+    verify_with: verifier
+
+  - name: Final Report
+    agent: reviewer
+    task: Compile comprehensive security audit report with findings and recommendations
+    retry: 1
