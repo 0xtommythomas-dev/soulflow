@@ -1,0 +1,25 @@
+name: Simple Demo
+description: Quick demonstration of SoulFlow multi-agent coordination
+
+steps:
+  - name: Planning
+    agent: planner
+    task: Create a simple plan for building a hello-world application
+    retry: 2
+    verify_with: reviewer
+
+  - name: Development
+    agent: developer
+    task: Write a hello-world program
+    retry: 3
+    verify_with: verifier
+
+  - name: Testing
+    agent: tester
+    task: Test the hello-world program works correctly
+    retry: 2
+
+  - name: Final Review
+    agent: reviewer
+    task: Approve the completed work
+    retry: 1
